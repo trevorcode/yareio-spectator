@@ -7,7 +7,7 @@
         "es2017"
       ],
       "target": "es2017",
-      "outFile": "./script/script.js",
+      "outFile": "./script/script.user.js",
       "sourceMap": true
     },
     "exclude": [

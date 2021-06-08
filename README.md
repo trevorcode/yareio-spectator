@@ -13,6 +13,6 @@
 // @icon         https://www.google.com/s2/favicons?domain=tampermonkey.net
 // @grant        none
 // @run-at       document-start
-// @require      file:///PATH TOE FILE
+// @require      file:///PATH TO FILE
 // ==/UserScript==
 ```

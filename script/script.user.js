@@ -8,9 +8,8 @@
 // @icon         https://www.google.com/s2/favicons?domain=tampermonkey.net
 // @grant        none
 // @run-at       document-start
-// @require      file:///PATH TOE FILE
+// @require      file:///PATH TO FILE
 // ==/UserScript==
-
 class BaseHUD {
     constructor(base) {
         this.base = base;
@@ -42,7 +41,7 @@ class BaseHUD {
         battleHud.printText(`Energy: ${Math.trunc(totalEnergy)}`);
         battleHud.printText(`Energy Capacity: ${Math.trunc(totalEnergyCapacity)}`);
         battleHud.printText(`Economy Score (energy/s): ${Math.trunc(this.economyScore)}`);
-        battleHud.printText(`Average Economy Score (energy/s): ${Math.trunc(this.totalEconomyScore / this.economyScoreCount)}`);
+        battleHud.printText(`Avg Economy Score (energy/s): ${Math.trunc(this.totalEconomyScore / this.economyScoreCount)}`);
         battleHud.currentLineYPos += 24;
     }
 }
@@ -67,12 +66,10 @@ class BattleHUD {
     render() {
         this.ctx.clearRect(0, 0, this.hud.width, this.hud.height);
         this.ctx.fillStyle = 'rgba(0, 255, 0, 0.7)';
-        this.drawText("Total unit count: " + living_spirits.length, this.hud.width - 200, 100);
-        // this.drawText("My unit count: " + minions.length, this.hud.width - 200, 114)
-        // this.drawText("My energy: " + minions.reduce((count, m) => count+=m.energy, 0), this.hud.width - 200, 128)
-        // this.drawText("Enemy count: " + enemies.length, this.hud.width - 200, 142)
         this.currentLineYPos = 100;
-        this.currentLineXPos = 50;
+        this.currentLineXPos = this.hud.width - 50;
+        this.printText("Total unit count: " + living_spirits.filter(x => x.hp != 0).length);
+        this.currentLineYPos += 20;
         this.basesHud.forEach(x => {
             x.render();
         });
@@ -87,7 +84,10 @@ class BattleHUD {
         this.ctx.fillText(text, x, y);
     }
     printText(text) {
-        this.drawText(text, this.currentLineXPos, this.currentLineYPos);
+        let width = this.ctx.measureText(text).width;
+        let tempLineXPos = this.currentLineXPos;
+        tempLineXPos = this.hud.width - width - (this.hud.width - tempLineXPos);
+        this.drawText(text, tempLineXPos, this.currentLineYPos);
         this.currentLineYPos += 20;
     }
 }

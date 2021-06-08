@@ -1,3 +1,16 @@
+// ==UserScript==
+// @name         Yare Spectator
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://yare.io/d1/*
+// @icon         https://www.google.com/s2/favicons?domain=tampermonkey.net
+// @grant        none
+// @run-at       document-start
+// @require      file:///PATH TO FILE
+// ==/UserScript==
+
 class BaseHUD {
     prevBaseEnergy: number;
     base: Base;
@@ -45,7 +58,7 @@ class BaseHUD {
         battleHud.printText(`Energy: ${Math.trunc(totalEnergy)}`);
         battleHud.printText(`Energy Capacity: ${Math.trunc(totalEnergyCapacity)}`);
         battleHud.printText(`Economy Score (energy/s): ${Math.trunc(this.economyScore)}`);
-        battleHud.printText(`Average Economy Score (energy/s): ${Math.trunc(this.totalEconomyScore / this.economyScoreCount)}`);
+        battleHud.printText(`Avg Economy Score (energy/s): ${Math.trunc(this.totalEconomyScore / this.economyScoreCount)}`);
 
         battleHud.currentLineYPos += 24;
 

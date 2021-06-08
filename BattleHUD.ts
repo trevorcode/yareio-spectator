@@ -6,7 +6,7 @@ class BattleHUD {
     selectionStart: Position;
     currentLineYPos: number;
     currentLineXPos: number;
-    
+
     basesHud: BaseHUD[];
 
     init() {
@@ -22,7 +22,7 @@ class BattleHUD {
 
 
         this.basesHud = [];
-        bases.forEach(x=> {
+        bases.forEach(x => {
             this.basesHud.push(new BaseHUD(x));
         });
 
@@ -33,33 +33,35 @@ class BattleHUD {
         this.ctx.clearRect(0, 0, this.hud.width, this.hud.height);
 
         this.ctx.fillStyle = 'rgba(0, 255, 0, 0.7)';
-        this.drawText("Total unit count: " + living_spirits.length, this.hud.width - 200, 100)
-        // this.drawText("My unit count: " + minions.length, this.hud.width - 200, 114)
-        // this.drawText("My energy: " + minions.reduce((count, m) => count+=m.energy, 0), this.hud.width - 200, 128)
-        // this.drawText("Enemy count: " + enemies.length, this.hud.width - 200, 142)
-
         this.currentLineYPos = 100;
-        this.currentLineXPos = 50;
-        this.basesHud.forEach(x=> {
+        this.currentLineXPos = this.hud.width - 50;
+        this.printText("Total unit count: " + living_spirits.filter(x => x.hp != 0).length)
+
+        this.currentLineYPos += 20;
+        this.basesHud.forEach(x => {
             x.render();
         });
     }
 
     tick() {
-        this.basesHud.forEach(x=> {
+        this.basesHud.forEach(x => {
             x.tick();
         });
     }
 
-    drawText(text: string, x:number, y:number)
-    {
+    drawText(text: string, x: number, y: number) {
         this.ctx.font = "16px Arial";
         this.ctx.fillText(text, x, y);
     }
 
-    printText(text:string)
-    {
-        this.drawText(text, this.currentLineXPos, this.currentLineYPos)
+    printText(text: string) {
+        let width = this.ctx.measureText(text).width;
+        let tempLineXPos = this.currentLineXPos;
+
+        tempLineXPos = this.hud.width - width - (this.hud.width - tempLineXPos);
+
+
+        this.drawText(text, tempLineXPos, this.currentLineYPos)
         this.currentLineYPos += 20;
     }
 

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "module": "none",
+      "lib": [
+        "es6",
+        "dom",
+        "es2017"
+      ],
+      "target": "es2017",
+      "outFile": "./script/script.js",
+      "sourceMap": true
+    },
+    "exclude": [
+      "old/*",
+    ]
+  }

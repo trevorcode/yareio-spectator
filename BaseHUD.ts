@@ -66,8 +66,8 @@ class BaseHUD {
         battleHud.printText(`Energy Capacity: ${Math.trunc(totalEnergyCapacity)}`);
         battleHud.printText(`Economy Score (energy/s): ${Math.trunc(this.economyScore)}`);
         battleHud.printText(`Avg Economy Score (energy/s): ${Math.trunc(this.totalEconomyScore / this.economyScoreCount)}`);
-        battleHud.printText(`Economic Efficiency: ${Math.trunc(this.economyEfficiency)}`);
-        battleHud.printText(`Avg Economic Efficiency: ${Math.trunc(this.totalEconomyEfficiency / this.economyScoreCount)}`);
+        battleHud.printText(`Economic Efficiency: ${(this.economyEfficiency).toFixed(2)}`);
+        battleHud.printText(`Avg Economic Efficiency: ${(this.totalEconomyEfficiency / this.economyScoreCount).toFixed(2)}`);
 
         battleHud.currentLineYPos += 24;
 

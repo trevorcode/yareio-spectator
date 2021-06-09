@@ -40,7 +40,7 @@ class BaseHUD {
         
 
         this.economyScore = tempEnergy - this.prevBaseEnergy;
-        this.economyEfficiency = this.economyScore / living_spirits.filter(x => x.player_id == this.base.player_id && x.hp != 0).length;
+        this.economyEfficiency = this.economyScore / living_spirits.filter(x => x.player_id == this.base.player_id && x.hp != 0).reduce((r, s) => r + s.size, 0);
         this.totalEconomyScore += this.economyScore; 
         this.totalEconomyEfficiency += this.economyEfficiency;
         this.prevBaseEnergy = this.base.energy;

@@ -8,6 +8,7 @@ class BattleHUD {
     currentLineXPos: number;
 
     basesHud: BaseHUD[];
+    unitGraph: UnitGraph;
 
     init() {
         let template = document.createElement('canvas');
@@ -26,6 +27,8 @@ class BattleHUD {
             this.basesHud.push(new BaseHUD(x));
         });
 
+        this.unitGraph = new UnitGraph();
+
     }
 
     render() {
@@ -38,8 +41,9 @@ class BattleHUD {
         this.printText("Total unit count: " + living_spirits.filter(x => x.hp != 0).length)
 
         this.currentLineYPos += 20;
-        this.basesHud.forEach(x => {
+        this.basesHud.forEach((x,index) => {
             x.render();
+            this.unitGraph.drawGraph(index, x.base.color);
         });
     }
 
@@ -47,6 +51,7 @@ class BattleHUD {
         this.basesHud.forEach(x => {
             x.tick();
         });
+        this.unitGraph.buildGraphData();
     }
 
     drawText(text: string, x: number, y: number) {

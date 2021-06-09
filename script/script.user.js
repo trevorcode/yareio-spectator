@@ -69,6 +69,7 @@ class BattleHUD {
         bases.forEach(x => {
             this.basesHud.push(new BaseHUD(x));
         });
+        this.unitGraph = new UnitGraph();
     }
     render() {
         this.ctx.clearRect(0, 0, this.hud.width, this.hud.height);
@@ -77,14 +78,16 @@ class BattleHUD {
         this.currentLineXPos = this.hud.width - 50;
         this.printText("Total unit count: " + living_spirits.filter(x => x.hp != 0).length);
         this.currentLineYPos += 20;
-        this.basesHud.forEach(x => {
+        this.basesHud.forEach((x, index) => {
             x.render();
+            this.unitGraph.drawGraph(index, x.base.color);
         });
     }
     tick() {
         this.basesHud.forEach(x => {
             x.tick();
         });
+        this.unitGraph.buildGraphData();
     }
     drawText(text, x, y) {
         this.ctx.font = "16px Arial";
@@ -98,7 +101,42 @@ class BattleHUD {
         this.currentLineYPos += 20;
     }
 }
+class UnitGraph {
+    constructor() {
+        this.graphIndex = 0;
+        this.graphData = [];
+        this.lastTData = null;
+    }
+    buildGraphData() {
+        let w = window;
+        let gameBlocks = Object.entries(w.game_blocks);
+        if (this.lastTData != w.active_block) {
+            this.graphData = gameBlocks.map(e => ({
+                'tick': parseInt(e[0].substr(1)),
+                'values': [Object.values(e[1].p1).reduce((r, s) => s[3] ? r + s[1] : r, 0) * (w.shapes.shape1 == "squares" ? 112 / 200 : 1),
+                    Object.values(e[1].p2).reduce((r, s) => s[3] ? r + s[1] : r, 0) * (w.shapes.shape2 == "squares" ? 112 / 200 : 1)]
+            })).sort((a, b) => b.tick - a.tick);
+            this.lastTData = w.active_block;
+        }
+        this.graphIndex++;
+    }
+    drawGraph(index, color) {
+        if (this.graphData.length > 0) {
+            battleHud.ctx.strokeStyle = color;
+            battleHud.ctx.beginPath();
+            let x = battleHud.hud.width;
+            battleHud.ctx.moveTo(--x, battleHud.hud.height - 80 - this.graphData[0].values[index]);
+            console.log(this.graphData);
+            this.graphData.forEach(data => {
+                battleHud.ctx.lineTo(--x, battleHud.hud.height - 80 - data.values[index]);
+            });
+            battleHud.ctx.stroke();
+        }
+    }
+}
+/// <reference path="./BaseHud.ts" />
 /// <reference path="./BattleHUD.ts" />
+/// <reference path="./UnitGraph.ts" />
 var world_initiated = 0;
 var battleHud = new BattleHUD();
 setTimeout(() => runHud(), 3000);

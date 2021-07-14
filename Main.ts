@@ -1,4 +1,4 @@
-/// <reference path="./BaseHud.ts" />
+/// <reference path="./BaseHUD.ts" />
 /// <reference path="./BattleHUD.ts" />
 /// <reference path="./UnitGraph.ts" />
 

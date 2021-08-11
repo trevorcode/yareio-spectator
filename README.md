@@ -18,6 +18,5 @@ https://github.com/trevorcode/yareio-spectator/raw/master/script/script.user.js
 // @icon         https://www.google.com/s2/favicons?domain=tampermonkey.net
 // @grant        none
 // @run-at       document-start
-// @require      file:///PATH TO FILE
 // ==/UserScript==
 ```

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Yare Spectator
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.1
 // @description  try to take over the world!
 // @author       You
 // @match        https://yare.io/d1/*
@@ -135,11 +135,11 @@ class UnitGraph {
 /// <reference path="./BaseHUD.ts" />
 /// <reference path="./BattleHUD.ts" />
 /// <reference path="./UnitGraph.ts" />
-var world_initiated = 0;
 var battleHud = new BattleHUD();
 var checkForStart = setInterval(() => {
+    console.log("checking for start");
     if (world_initiated != 0) {
-        setTimeout(() => runHud(), 3000);
+        setTimeout(() => runHud(), 100);
     }
 }, 1000);
 function runHud() {

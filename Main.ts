@@ -4,11 +4,24 @@
 
 var world_initiated = 0;
 var battleHud: BattleHUD = new BattleHUD();
-setTimeout(() => runHud(), 3000);
+
+var checkForStart = setInterval(() => {
+    if (world_initiated != 0)
+    {
+        setTimeout(() => runHud(), 3000);
+    }    
+
+  }, 1000);
+
+
+
+
 
 function runHud() {
+    clearInterval(checkForStart);
     console.log("ready");
-    var oldRender;
+    var oldRender;    
+
     
     battleHud.init();
     

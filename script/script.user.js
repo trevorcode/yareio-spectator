@@ -125,7 +125,6 @@ class UnitGraph {
             battleHud.ctx.beginPath();
             let x = battleHud.hud.width;
             battleHud.ctx.moveTo(--x, battleHud.hud.height - 80 - this.graphData[0].values[index]);
-            console.log(this.graphData);
             this.graphData.forEach(data => {
                 battleHud.ctx.lineTo(--x, battleHud.hud.height - 80 - data.values[index]);
             });
@@ -138,8 +137,13 @@ class UnitGraph {
 /// <reference path="./UnitGraph.ts" />
 var world_initiated = 0;
 var battleHud = new BattleHUD();
-setTimeout(() => runHud(), 3000);
+var checkForStart = setInterval(() => {
+    if (world_initiated != 0) {
+        setTimeout(() => runHud(), 3000);
+    }
+}, 1000);
 function runHud() {
+    clearInterval(checkForStart);
     console.log("ready");
     var oldRender;
     battleHud.init();

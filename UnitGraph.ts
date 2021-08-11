@@ -39,7 +39,6 @@ class UnitGraph {
             battleHud.ctx.beginPath();
             let x = battleHud.hud.width;
             battleHud.ctx.moveTo(--x, battleHud.hud.height - 80 - this.graphData[0].values[index]);
-            console.log(this.graphData);
             this.graphData.forEach(data => {
                 battleHud.ctx.lineTo(--x, battleHud.hud.height - 80 -data.values[index]);
             });
